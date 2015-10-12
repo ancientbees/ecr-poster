@@ -1,7 +1,8 @@
 ECR Poster LateX Document Class
 ===============================
 
-== Introduction ==
+Introduction
+------------
 
 This LateX document class provides a basic framework with which to create
 Edinburgh Centre for Robotics (ECR) branded posters with. It makes use of
@@ -9,16 +10,19 @@ the TikZPoster (see [CTAN][0]) at its base and builds on top of it.
 
 More information about the ECR is available on their [website][1].
 
-== Usage ==
+Usage
+-----
 
 *To be added later*
 
-== Contributors ==
+Contributors
+------------
 
 Hans-Nikolai Viessmann
 *More to follow...*
 
-== License ==
+License
+-------
 
 Though this document class is accessible to the public, the logos of the
 Edinburgh Center for Robotics (ECR), Heriot-Watt University, The University of

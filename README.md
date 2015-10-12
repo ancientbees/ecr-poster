@@ -33,5 +33,25 @@ regulations.
 **The licensing of this document class is yet to be determined, copyright is
 held by the ECR.`**
 
+Extras
+------
+
+### SVG to PDF
+
+Evidently, this is not trival as most of the tools that exist to do this
+(InkScape, Adobe Illistrator, etc.) will tend to rasterise parts of the SVG
+in the process of converting it. This can contribute to an increase in file
+size as well, and more importantly, a decrease in quality.
+
+One solution that we've found to solve this is to use the [cairo][2] and 
+[libzsvg][3] libraries to do the conversion - they avoid the aforementioned
+problems (mostly). The tool to do this is either [svg2pdf][4] or
+[svgconvert][5]. You'll need to compile the tool yourself, ensuring that all
+dependencies are met.
+
 [0]: https://www.ctan.org/pkg/tikzposter "CTAN: TikZPoster LateX package"
 [1]: http://www.edinburgh-robotics.org/ "Edinburgh Centre for Robotics website"
+[2]: http://cairographics.org/ "Cairo Graphics library"
+[3]: https://wiki.gnome.org/action/show/Projects/LibRsvg "librsvg library"
+[4]: http://cgit.freedesktop.org/~cworth/svg2pdf/ "svg2pdf tool"
+[5]: http://blog.mathieu-leplatre.info/static-build-of-cairo-and-librsvg.html "svgconvert tool"

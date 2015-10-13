@@ -13,7 +13,15 @@ More information about the ECR is available on their [website][1].
 Usage
 -----
 
-*To be added later*
+This is a drop-in document class that you can use right away. It makes use of
+the TikZPoster document class, and so depends on the TikZPoster package - make
+sure this and all its dependencies are installed (more info at [CTAN][0]).
+
+1. Add the `ecrposter.cls` file to your work directory
+1. In your new LaTeX document, set your document class to `ecrposter`. The options supported by the document class are identical to that used by TikZPoster, so have a look at their [documentation][0] for possible options.<br/> *The default options are:* `17pt`, `a1paper`, and `landscape`
+1. Populate the title information by executing the `\title`, `\author`, and `\institute` macros
+1. Within the `\begin{document} ...` environment call the `\maketitle` macro to generate the title
+1. Populate the document with your content :D
 
 Contributors
 ------------
@@ -31,7 +39,7 @@ Edinburgh, and The Engineering and Physical Sciences Research Council
 regulations.
 
 **The licensing of this document class is yet to be determined, copyright is
-held by the ECR.`**
+held by the ECR.**
 
 Extras
 ------

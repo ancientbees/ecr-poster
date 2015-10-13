@@ -1,0 +1,55 @@
+\documentclass{ecrposter}
+
+%% This macro has not been added to the ECRPoster document class because
+%% it might be nice, if it doesn't bother you, to show the TikZPoster logo :)
+\tikzposterlatexaffectionproofoff % to remove the TikZPoster logo
+
+% Title Related content
+\title{Title of Your Work}
+\institute{[Lead University], Edinburgh Centre for Robotics} % See Section 4.1
+\author{First Author, Second Author}
+
+\begin{document}
+	% Top Title
+	\maketitle
+	
+	% Main Content
+	\begin{columns}
+		\column{0.25}  % See Section 4.4
+		\block{Introduction}{
+			\section*{Motivation}
+			The above \texttt{\textbackslash{}section*\string{\string}} creates a gap, this can be altered through the \texttt{titlespec} package.\\
+			
+			Because of how TikZPosters is designed, one needs to be explicit about gaps between newlines\\
+			
+			doing
+			
+			this
+			
+			has
+			
+			no
+			
+			effect\\
+			
+			You need to use \texttt{\textbackslash{}\textbackslash{}} like this\\
+			
+			now\\
+			
+			this\\
+			
+			works\\
+			
+			Lorem ipsum dolor sit amet
+		}
+		\block{B}{Lorem ipsum dolor sit amet}
+
+		\column{0.5}  % See Section 4.4
+		\block{Method}{You can use multicols for a two-column layout here or adjust the column-sizes back to 0.333 -- 0.333 -- 0.333 using the nice macro \texttt{\textbackslash{}third}, e.g. \texttt{\textbackslash{}column\string{\textbackslash{}third\string}}.}
+
+		\column{0.25}  % See Section 4.4
+		\block{Results}{Some results}
+		\block{Conclusion}{This is the conclusion.}
+	\end{columns}
+	
+\end{document}

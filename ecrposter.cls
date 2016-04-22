@@ -21,8 +21,10 @@
 % ---------------------------------------------------------------------------- %
 % Load Packages
 \RequirePackage[T1]{fontenc}
+\RequirePackage{fix-cm}
 \RequirePackage{helvet}
 \RequirePackage{sansmath}
+\RequirePackage[export]{adjustbox}
 
 % ---------------------------------------------------------------------------- %
 % Font Configurations
@@ -50,8 +52,7 @@
 % ---------------------------------------------------------------------------- %
 % Assignments and related invocations
 %% assign lengths and other dimensions
-\setlength{\footerheight}{5.5cm}
-\setlength{\offcentre}{-14em}
+\setlength{\footerheight}{0.09\textheight}
 \newcommand{\titleboxwidth}{0.7\linewidth}
 
 % ---------------------------------------------------------------------------- %
@@ -88,7 +89,7 @@
 }
 
 %% title style
-\definetitlestyle{ECRtitle}{width=\linewidth, titlegraphictotitledistance=-75mm, innersep=15mm,titletotopverticalspace=0mm, titletoblockverticalspace=20mm}{%
+\definetitlestyle{ECRtitle}{width=\linewidth, titlegraphictotitledistance=0mm, innersep=15mm, titletotopverticalspace=0mm, titletoblockverticalspace=20mm}{%
 	\begin{scope}[line width=\titlelinewidth]
 		\fill[fill=titlebgcolor] (\titleposleft,\titleposbottom) rectangle (\titleposright,\titlepostop);
 		\draw[color=titlebottomcolor] (\titleposleft,\titleposbottom) -- (\titleposright,\titleposbottom);
@@ -152,23 +153,54 @@
 % Document Layout
 % title layout
 \settitle{%
-	\centering
-	\vbox{%
-		$\vcenter{\hbox{\includegraphics[height=10em]{logos/ECR_Logo.pdf}}}$
-		\hfill
-		$\vcenter{\hbox{\includegraphics[height=6em]{logos/HW_Logo_positive.pdf}}}$
+    %% <---- A little bit of LaTeX magic ---->
+    %% In order to achieve the overlap of the Logos and Title texts, we used the
+    %% \\[LEN] linebreak notation where LEN is some arbitrary vertical distance.
+    %% LEN can be negative, meaning we can move everything after the linebreak
+    %% above the linebreak - in essence achieving an overlap. The problem with
+    %% this though is that it isn't trivial to find a LEN ratio that allows for
+    %% adaption to arbitrary changes to the layout. THe result is that one has to
+    %% keep fiddling with the number for each layout - which is non-sensical.
+    %% The solution you see below resolves all the issue through a bit of TeX/LaTeX
+    %% box magic.
+    %% TeX/LaTeX use boxes to organise content within a document. The vertical and
+    %% horizontal sizes of these boxes is taken into account to ensure that the
+    %% content `flows' well. Additionally the size gives the box its own space and
+    %% as such is meant to prevent overlapping of content. The macros to make boxes
+    %% though can given a size parameter which allows one to altar the size of the box
+    %% irrespective to its content. If the size is smaller then the content, other
+    %% boxes with be moved in to take up the `free' space - leading to an overlap. We
+    %% can use this here to achieve an overlap.
+    %% We create a box with no width which is the first box within the group - which
+    %% means we flush to the left (or to the right depending on text-comprehension).
+    %% Furthermore we can specify that the content is aligned relative to the size of
+    %% the box - in our case this means we align to the far left side of the group -
+    %% the page/poster in this instance. Here now comes the trick - we can define the
+    %% size of the content by creating another box within the first box which has
+    %% a size - in this instance the page/poster width. If we align box 1 to the left,
+    %% box 2 is aligned to the left as well, but because box 2 has a size, the content
+    %% aligns with box 2. Doing so means we have created a box with no shape, which means
+    %% other boxes can overlap it - but it contains a box with a shape, meaning that the
+    %% content aligns to the inner most box.
+    \makebox[0pt][l]{%
+        \noindent%
+        \begin{minipage}{\linewidth}
+            \centering
+            \color{titlefgcolor}{\bfseries \huge \parbox{\titleboxwidth}{\vspace{2em}\centering \@title} \par}
+            \vspace*{2em}
+            {\Large \@author \par}
+            \vspace*{0.5em}
+            {\large \@institute}
+        \end{minipage}
+    }%
+    \noindent%
+    \begin{minipage}{\linewidth}
+        \includegraphics[valign=c,height=0.05\textheight]{logos/ECR_Logo.pdf}
+        \hfill
+        \includegraphics[valign=c,height=0.03\textheight]{logos/HW_Logo_positive.pdf}
 		\hspace{2em}
-		$\vcenter{\hbox{\includegraphics[height=8em]{logos/University_of_Edinburgh_Logo.pdf}}}$ \\
-		[\TP@titlegraphictotitledistance]
-		\hspace*{\offcentre}
-		\color{titlefgcolor}{\bfseries \huge \parbox{\titleboxwidth}{\vspace{2em}\centering \@title} \par}
-		\vspace*{2em}
-		\hspace*{\offcentre}
-		{\Large \@author \par}
-		\vspace*{0.5em}
-		\hspace*{\offcentre}
-		{\large \@institute}
-	}
+        \includegraphics[valign=c,height=0.04\textheight]{logos/University_of_Edinburgh_Logo.pdf}
+    \end{minipage}
 }
 
 %% footer layout
@@ -179,7 +211,7 @@
 			\hspace{0.5\TP@titleinnersep}
 			\begin{minipage}[t]{0.14\linewidth}
 				\vspace*{0pt}
-				\includegraphics[height=4.5em]{logos/EPSRC_Logo.pdf}
+				\includegraphics[valign=c,height=0.02\textheight]{logos/EPSRC_Logo.pdf}
 			\end{minipage}%
 			\begin{minipage}[t]{0.45\linewidth}
 				\vspace*{0pt}

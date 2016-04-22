@@ -18,15 +18,21 @@ the TikZPoster document class, and so depends on the TikZPoster package - make
 sure this and all its dependencies are installed (more info at [CTAN][0]).
 
 1. Add the `ecrposter.cls` file to your work directory
-1. In your new LaTeX document, set your document class to `ecrposter`. The options supported by the document class are identical to that used by TikZPoster, so have a look at their [documentation][0] for possible options.<br/> *The default options are:* `17pt`, `a1paper`, and `landscape`
-1. Populate the title information by executing the `\title`, `\author`, and `\institute` macros
-1. Within the `\begin{document} ...` environment call the `\maketitle` macro to generate the title
+1. In your new LaTeX document, set your document class to `ecrposter`. The
+   options supported by the document class are identical to that used by
+   TikZPoster, so have a look at their [documentation][0] for possible
+   options.<br/> *The default options are:* `17pt`, `a1paper`, and `landscape`
+1. Populate the title information by executing the `\title`, `\author`, and
+   `\institute` macros
+1. Within the `\begin{document} ...` environment call the `\maketitle` macro to
+   generate the title
 1. Populate the document with your content :D
 
 Contributors
 ------------
 
 Hans-Nikolai Viessmann
+
 *More to follow...*
 
 License
@@ -46,8 +52,8 @@ Extras
 
 ### SVG to PDF
 
-Evidently, this is not trival as most of the tools that exist to do this
-(InkScape, Adobe Illistrator, etc.) will tend to rasterise parts of the SVG
+Evidently, this is not trivial as most of the tools that exist to do this
+(InkScape, Adobe Illustrator, etc.) will tend to rasterise parts of the SVG
 in the process of converting it. This can contribute to an increase in file
 size as well, and more importantly, a decrease in quality.
 
@@ -56,6 +62,20 @@ One solution that we've found to solve this is to use the [cairo][2] and
 problems (mostly). The tool to do this is either [svg2pdf][4] or
 [svgconvert][5]. You'll need to compile the tool yourself, ensuring that all
 dependencies are met.
+
+### Detecting rasterised content in PDF files
+
+Depending on what tool suite is used to generate a PDF file, it may opt to
+generate bitmaps/lossy versions of any vector graphics. This leads to bad
+visual scaling of the PDF. There are several ways of determining whether a
+PDF contains rasterised content or not.
+
+1. Visually check the PDF by zooming in and out of parts of the document to see
+   if anything is pixelated or not.
+1. Search the PDF file for the `/image` token: `grep -c -i "/image"
+   PDF-FILE.pdf`.
+1. Use a tool like `pdfimages` to list/extract any bitmaps from the PDF:
+   `pdfimages -list PDF-FILE.pdf`
 
 [0]: https://www.ctan.org/pkg/tikzposter "CTAN: TikZPoster LateX package"
 [1]: http://www.edinburgh-robotics.org/ "Edinburgh Centre for Robotics website"

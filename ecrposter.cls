@@ -22,8 +22,9 @@
 % Load Packages
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fix-cm}
-\RequirePackage{helvet}
+\RequirePackage[scaled]{helvet}
 \RequirePackage{sansmath}
+\RequirePackage{inconsolata}
 \RequirePackage[export]{adjustbox}
 
 % ---------------------------------------------------------------------------- %
@@ -41,11 +42,17 @@
 %% lengths and other dimensions
 \newlength{\footerheight}
 \newlength{\offcentre}
-%% more concise column spacing
-\newcommand{\third}{0.333333} % As with all things, precision's shadow is chaos
+%%% As with all things, precision's shadow is chaos %%%
 %% better spacing between blocks
 \newcommand{\qspace}{\vspace{0.25\baselineskip}}
 \newcommand{\haspace}{\vspace{0.5\baselineskip}}
+%% add support for a subtitle
+\newcommand{\@subtitle}{~}
+\newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
+%% add specifier for alternative ECR logo (user-made, unauthorized!!!)
+\newtoggle{ecr_logo_alt}
+\togglefalse{ecr_logo_alt}
+\newcommand{\useecrlogoalt}{\toggletrue{ecr_logo_alt}}
 %% we do some nastiness and undefine some TikZPoster stuff
 \let\titlegraphic\@undefined
 
@@ -186,8 +193,11 @@
         \noindent%
         \begin{minipage}{\linewidth}
             \centering
-            \color{titlefgcolor}{\bfseries \huge \parbox{\titleboxwidth}{\vspace{2em}\centering \@title} \par}
-            \vspace*{2em}
+            \color{titlefgcolor}{%
+                {\bfseries \huge \parbox{\titleboxwidth}{\centering \@title}}\vspace*{0.5em}\linebreak
+                {\Large \parbox{\titleboxwidth}{\centering \@subtitle}}\par
+            }
+            \vspace*{1.5em}
             {\Large \@author \par}
             \vspace*{0.5em}
             {\large \@institute}
@@ -195,11 +205,15 @@
     }%
     \noindent%
     \begin{minipage}{\linewidth}
-        \includegraphics[valign=c,height=0.05\textheight]{logos/ECR_Logo.pdf}
+        \iftoggle{ecr_logo_alt}{%
+            \includegraphics[valign=c,height=0.052\textheight]{logos/ECR_Alt/ECR_Logo_Alt.pdf}
+        }{%
+            \includegraphics[valign=c,height=0.052\textheight]{logos/ECR_Logo.pdf}
+        }
         \hfill
-        \includegraphics[valign=c,height=0.03\textheight]{logos/HW_Logo_positive.pdf}
+        \includegraphics[valign=c,height=0.032\textheight]{logos/HW_Logo_positive.pdf}
 		\hspace{2em}
-        \includegraphics[valign=c,height=0.04\textheight]{logos/University_of_Edinburgh_Logo.pdf}
+        \includegraphics[valign=c,height=0.045\textheight]{logos/University_of_Edinburgh_Logo.pdf}
     \end{minipage}
 }
 
@@ -232,7 +246,7 @@
 			\end{minipage}
 		}};
 		
-		\draw[color=titlebottomcolor,line width=5mm,anchor=south] ($(-0.5\textwidth,-0.5\textheight+\footerheight)$) -- ($(0.5\textwidth,-0.5\textheight+\footerheight)$);
+		\draw[color=titlebottomcolor,line width=4mm,anchor=south] ($(-0.5\textwidth,-0.5\textheight+\footerheight)$) -- ($(0.5\textwidth,-0.5\textheight+\footerheight)$);
 	\end{scope}
 }
 

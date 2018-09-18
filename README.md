@@ -31,7 +31,8 @@ sure this and all its dependencies are installed (more info at [CTAN][0]).
 Contributors
 ------------
 
-Hans-Nikolai Viessmann
+- [Hans-Nikolai Viessmann](https://github.com/hv15)
+- [@wxmerkt](https://github.com/wxmerkt)
 
 *More to follow...*
 

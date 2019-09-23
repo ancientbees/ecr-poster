@@ -49,10 +49,6 @@
 %% add support for a subtitle
 \newcommand{\@subtitle}{~}
 \newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
-%% add specifier for alternative ECR logo (user-made, unauthorized!!!)
-\newtoggle{ecr_logo_alt}
-\togglefalse{ecr_logo_alt}
-\newcommand{\useecrlogoalt}{\toggletrue{ecr_logo_alt}}
 %% we do some nastiness and undefine some TikZPoster stuff
 \let\titlegraphic\@undefined
 
@@ -205,11 +201,7 @@
     }%
     \noindent%
     \begin{minipage}{\linewidth}
-        \iftoggle{ecr_logo_alt}{%
-            \includegraphics[valign=c,height=0.052\textheight]{logos/ECR_Alt/ECR_Logo_Alt.pdf}
-        }{%
-            \includegraphics[valign=c,height=0.052\textheight]{logos/ECR_Logo.pdf}
-        }
+        \includegraphics[valign=c,height=0.052\textheight]{logos/ECR_Logo.pdf}
         \hfill
         \includegraphics[valign=c,height=0.032\textheight]{logos/HW_Logo_positive.pdf}
 		\hspace{2em}

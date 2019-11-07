@@ -4,7 +4,7 @@
 % The copyright of this LaTeX Document Class is held by The Edinburgh Centre
 % for Robotics, this document may not be distributed without their permission.
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ecrposter}[2016/04/20%
+\ProvidesClass{ecrposter}[2016/10/08%
 	Document class for typesetting posters with ECR branding]
 
 % ---------------------------------------------------------------------------- %
@@ -49,6 +49,15 @@
 %% add support for a subtitle
 \newcommand{\@subtitle}{~}
 \newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
+%% add support for custom acknowledgement
+\newcommand{\@acknowledgement}{This research is supported by the Engineering and Physical Sciences Research Council (EPSRC), as part of the CDT in Robotics and Autonomous Systems at Heriot-Watt University and The University of Edinburgh.}
+\newcommand{\acknowledgement}[1]{\renewcommand{\@acknowledgement}{#1}}
+%% add support for custom contact box
+\newcommand{\@contact}{%
+    Email: \texttt{some-email@[hw/ed].ac.uk}\\
+	Web: \texttt{www.edinburgh-robotics.org}\\
+	Twitter: \texttt{@EDINrobotics}}
+\newcommand{\contact}[1]{\renewcommand{\@contact}{#1}}
 %% we do some nastiness and undefine some TikZPoster stuff
 \let\titlegraphic\@undefined
 
@@ -64,9 +73,8 @@
 \definecolorstyle{ECRcolors} {%
 	\definecolor{colorOne}{RGB}{219,225,233} % Gray
 	\definecolor{colorTwo}{RGB}{53,74,106} % Dark Sky Blue
-	\definecolor{colorThree}{RGB}{53,74,106} % Dark Sky Blue
 	\definecolor{innerColorOne}{RGB}{227, 164, 166} % Off Red
-	\definecolor{innerColorTwo}{RGB}{138, 113, 153} % Off Blue
+	\definecolor{innerColorTwo}{RGB}{78, 98, 128} % Off Blue
 	}{%
 	% Background Colours
 	\colorlet{backgroundcolor}{colorOne}
@@ -76,13 +84,13 @@
 	\colorlet{titlebgcolor}{white}
 	\colorlet{titlebottomcolor}{colorTwo}
 	% Block Colours
-	\colorlet{blocktitlebgcolor}{colorThree}
+	\colorlet{blocktitlebgcolor}{colorTwo}
 	\colorlet{blocktitlefgcolor}{white}
 	\colorlet{blockbodybgcolor}{white}
 	\colorlet{blockbodyfgcolor}{black}
 	% Innerblock Colours
 	\colorlet{innerblocktitlebgcolor}{innerColorTwo}
-	\colorlet{innerblocktitlefgcolor}{black}
+	\colorlet{innerblocktitlefgcolor}{white}
 	\colorlet{innerblockbodybgcolor}{innerColorTwo}
 	\colorlet{innerblockbodyfgcolor}{black}
 	% Note colours
@@ -209,6 +217,10 @@
     \end{minipage}
 }
 
+%% FIXME: This is not a sensical way of doing this
+%%        we should instead have makefooter actually
+%%        set that we want a footer - similar to
+%%        maketitle.
 %% footer layout
 \newcommand{\makefooter}{%
 	\begin{scope}
@@ -223,17 +235,15 @@
 				\vspace*{0pt}
 				\vbox{%
 					{\small \bfseries Acknowledgements}\\
-					{\small This research is supported by the Engineering and Physical Sciences Research Council (EPSRC), as part of the CDT in Robotics and Autonomous Systems at Heriot-Watt University and The University of Edinburgh.}
+					{\small \@acknowledgement}
 				}
 			\end{minipage}%
 			\hfill%
 			\begin{minipage}[t]{0.3\linewidth}
 				\vspace*{0pt}
-				\vbox{%
+				\vbox{\small%
 					{\small \bfseries Contact Details}\\
-					{\small Email: \texttt{some-email@[hw/ed].ac.uk}}\\
-					{\small Web: \texttt{www.edinburgh-robotics.org}}\\
-					{\small Twitter: \texttt{@EDINrobotics}}
+					{\small \@contact}
 				}
 			\end{minipage}
 		}};
